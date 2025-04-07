@@ -46,20 +46,21 @@ app.use(cors());
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/notes', require('./routes/notes'));
 
-// Connect only once, not per function call
+// Connect to the database only once
 let isConnected = false;
 
 async function connectToDatabase() {
   if (isConnected) return;
-  await mongoose.connect(process.env.MONGO_URI);
+  await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
   isConnected = true;
   console.log("Connected to MongoDB");
 }
 
+// Export the Vercel handler function
 module.exports = async (req, res) => {
   try {
     await connectToDatabase();
-    return app(req, res); // forward to Express
+    app(req, res);  // Forward to Express
   } catch (err) {
     console.error("Server error:", err);
     res.status(500).send("Internal server error");
