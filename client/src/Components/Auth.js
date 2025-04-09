@@ -12,7 +12,7 @@ const Auth = () => {
   const register=async(e)=>{
     e.preventDefault()
     try{
-      const {data}=await axios.post('http://localhost:5000/api/auth/register',{username,password})
+      const {data}=await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/register`,{username,password})
       alert(data.message||'Registered successfully')
       setusername('')
       setPassword('')
@@ -29,7 +29,7 @@ const Auth = () => {
     const login=async(e)=>{
       e.preventDefault()
       try{
-        const {data}=await axios.post('http://localhost:5000/api/auth/login',{username,password})
+        const {data}=await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/login`,{username,password})
         setToken(data.token)
         localStorage.setItem('token',data.token)
         localStorage.setItem('username',data.username || username)

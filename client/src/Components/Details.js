@@ -10,7 +10,7 @@ const Details = () => {
     useEffect(()=>{
         const handleNoteDetails=async()=>{
             try{
-                const {data}=await axios.get(`http://localhost:5000/api/notes/${id}`,{
+                const {data}=await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/notes/${id}`,{
                     headers:{Authorization: `Bearer ${token}`}
                 })
                 setNote(data)

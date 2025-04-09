@@ -19,7 +19,7 @@ const Notes = () => {
                 return;
             }
             try{
-                const {data}=await axios.get('http://localhost:5000/api/notes',{
+                const {data}=await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/notes`,{
                     headers:{Authorization: `Bearer ${token}`}
                 })
                 setNotes(data)
@@ -35,7 +35,7 @@ const Notes = () => {
 
     const addNotes=async(e)=>{
         e.preventDefault()
-        const {data}=await axios.post('http://localhost:5000/api/notes',{title,body},{
+        const {data}=await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/notes`,{title,body},{
             headers:{Authorization:`Bearer ${token}`}
         })
         setNotes([...notes,data])
@@ -50,7 +50,7 @@ const Notes = () => {
 
     const handleDelete=async(noteid)=>{
         try{
-            await axios.delete(`http://localhost:5000/api/notes/${noteid}`,{
+            await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/notes/${noteid}`,{
                 headers:{Authorization: `Bearer ${token}`}
             })
             setNotes(notes.filter(note=>note._id!==noteid))
