@@ -6,6 +6,9 @@ const User=require('../models/User')
 const router=express.Router();
 
 //register a new user
+router.get('/', (req, res) => {
+    res.status(200).json({ message: 'API is working!' });
+});
 
 router.post('/register',async (req,res)=>{
     const {username, password}=req.body;
